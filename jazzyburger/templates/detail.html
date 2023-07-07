@@ -21,8 +21,10 @@
 <body>
 
     <h1>Welcome To Detail Page</h1>
+    
 {% block body %}
-    <div class="container mx-auto row text-center">
+<h1 class="text-center">Detail Page</h1>
+    <div class="container mx-auto row">
         <div class=" col-md-4 my-3 ">
           <div class="card" style="background-color: bisque;  height: 400px ">
   
@@ -35,6 +37,7 @@
                   <div class="d-flex justify-between w-100">
                       <button class="btn btn-primary w-50">Buy</button>
                       <p class="w-75">{{product.price}}</p>
+                      <a class="btn btn-outline-success" href="{% url 'update' pk=product.id %}">Update</a>
                   </div>
               </div>
           </div>

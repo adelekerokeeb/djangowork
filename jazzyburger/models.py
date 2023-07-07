@@ -7,6 +7,7 @@ class Product(models.Model):
     price = models.FloatField(default=0, blank=False)
     image = models.ImageField()
     
+    
     def __str__(self):
         return self.title
 
