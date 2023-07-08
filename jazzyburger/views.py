@@ -1,9 +1,11 @@
 from typing import Any, Dict
 from django.shortcuts import render, redirect
 from .models import Product
-from django.views.generic import TemplateView, DetailView, UpdateView, FormView
+from django.views.generic import TemplateView, DetailView, UpdateView, FormView,DeleteView
 from .forms import ProductForm, SignUpForm
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -37,7 +39,7 @@ class ProductUpdateView(UpdateView):
         instance = form.save(commit=False)
         item_name = instance.title  # Retrieve the updated item's name
         instance.save()
-        messages.success(self.request, f'Item "{item_name}" updated successfully')
+        messages.success(self.request, f'"{item_name}" updated by!')
         return super().form_valid(form)
     
     
@@ -82,8 +84,22 @@ class CreateUserView(FormView):
         new_user.save()
         messages.success(self.request, f'{username} has been created!')
         
-        return redirect(self.get_success_url())    
+        return redirect(self.get_success_url())   
     
+    
+class ProductDeleteView(SuccessMessageMixin, DeleteView):
+    model = Product
+    template_name = 'delete.html'
+    success_url = reverse_lazy('home')
+    
+    def get_success_message(self, cleaned_data):
+        title = cleaned_data.get('title', '')
+        username = self.request.user.username
+        return f"Item deleted by {username}"
+
+
+    
+
             
 def logout_view(request):
      logout(request)
@@ -105,6 +121,3 @@ def login_view(request):
             return render(request, "login.html")
     else:
         return render(request, "login.html")
-
-# class AllProductsView(TemplateView):
-#     template_name = "products.html"

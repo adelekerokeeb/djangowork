@@ -34,10 +34,11 @@
               <div class="card-body">
                   <h5>{{product.title}}</h5>
                   <p>{{product.description | slice:"0:50"}}</p>
-                  <div class="d-flex justify-between w-100">
-                      <button class="btn btn-primary w-50">Buy</button>
-                      <p class="w-75">{{product.price}}</p>
-                      <a class="btn btn-outline-success" href="{% url 'update' pk=product.id %}">Update</a>
+                  <p class="w-75">{{product.price}}</p>
+                  <div class="d-flex justify-content-between w-100">
+                      {% comment %} <button class="btn btn-primary w-50">Buy</button> {% endcomment %}
+                      <a class="btn btn-outline-success w-50 " href="{% url 'update' pk=product.id %}">Update</a>
+                      <a class="btn btn-outline-danger w-25" href="{% url 'delete' pk=product.id %}">Delete</a>
                   </div>
               </div>
           </div>

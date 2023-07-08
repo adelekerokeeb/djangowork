@@ -5,6 +5,7 @@ from jazzyburger.views import (
     ProductUpdateView,
     AddProductView,
     CreateUserView,
+    ProductDeleteView,
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,7 +14,8 @@ from . import views
 urlpatterns = [
     path('', ProductView.as_view(), name='home'),
     path('detail/<int:pk>', ProductDetailView.as_view(), name='detail'),
-    path('update/<int:pk>', ProductUpdateView.as_view(), name='update'),
+    path('detail/<int:pk>/update', ProductUpdateView.as_view(), name='update'),
+    path('detail/<int:pk>/delete/', ProductDeleteView.as_view(), name = 'delete'),
     path('addproduct/', AddProductView.as_view(), name='addproduct'),
     path('adduser/', CreateUserView.as_view(), name='adduser'),
     path('login/', views.login_view, name='login'),
