@@ -1,4 +1,3 @@
-from typing import Any, Dict
 from django.shortcuts import render, redirect
 from .models import Product
 from django.views.generic import TemplateView, DetailView, UpdateView, FormView,DeleteView
@@ -10,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Field
+from crispy_forms.layout import Submit
 
 
 
@@ -103,7 +102,6 @@ class ProductDeleteView(SuccessMessageMixin, DeleteView):
             
 def logout_view(request):
      logout(request)
-     messages.info(request, 'You are logged out!')    
      return redirect('/')      
 
             
